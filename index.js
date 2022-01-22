@@ -1,6 +1,6 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
-const controller = require('./controller');
+const controller = require('./controller/shopController');
 const username = process.env.USER_NAME;
 const password = process.env.PASSWORD;
 

@@ -1,6 +1,8 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 
+
+const itemService = require('../service/item')
 const app = express()
 app.use(bodyParser.json({extended: true}))
 // Enable below line after the frontend is ready
@@ -9,20 +11,36 @@ const port = 3000
 
 const controller = ()=>{
     // Initial root dir
-app.get('/', (req, res) => {
+  app.get('/', (req, res) => {
     res.send('Hello World!')
+  })
+
+  app.get('/getItemByName', async(req, res) => {
+    
+    let result = await itemService.getItemByName(req.body.Name);
+    
+    res.send(result)
+  })
+
+  app.get('/getItemByID', async(req, res) => {
+    
+    let result = await itemService.getItemByID(req.body.itemID);
+    
+    res.send(result)
   })
   
   // Add new items
-  app.post('/addItem', (req,res)=>{
-    console.log(req.body);
-    res.send("Msg recieved");
+  app.post('/addItem', async(req,res)=>{
+    // console.log(req.body);
+    let result = await itemService.addItem(req.body);
+    res.send(result);
   })
   
   // Add new stock to exsisting items
-  app.post('/addItemStock', (req,res)=>{
-    console.log(req.body);
-    res.send("Msg recieved");
+  app.post('/addItemStock', async(req,res)=>{
+    // console.log(req.body);
+    let result = await itemService.addItemStock(req.body);
+    res.send(result);
   })
   
   // Transaction Request
