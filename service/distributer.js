@@ -9,7 +9,6 @@ var foundItem = null;
 
 const addDistributer = async(newDistri)=>{
     let result = "";
-    let itemIDArray = [];
     let itemsArray = newDistri.Order[0].Items;
     let respItemsArray = addItemsFromOrder(itemsArray);
     // for(const item of itemsArray){

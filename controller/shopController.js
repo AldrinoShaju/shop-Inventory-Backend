@@ -13,63 +13,77 @@ app.use(bodyParser.json({extended: true}))
 const port = 3000
 
 const controller = ()=>{
+  let frontendResponse;
     // Initial root dir
   app.get('/', (req, res) => {
-    res.send('Hello World!')
+    res.status(500).send({
+      ErrorCode:3453,
+      ErrorClass: "Business",
+      ErrorMessage: "Invalid Field"
+    });
   })
 
-  app.get('/getItemByName', async(req, res) => {
+  app.get('/getItem', async(req, res) => {
     
-    let result = await itemService.getItemByName(req.body.Name);
-    
-    res.send(result)
+    if(req.body.type==="ID"){
+      frontendResponse = await itemService.getItemByID(req.body.itemID);
+    }else if(req.body.type==="Name"){
+      frontendResponse = await itemService.getItemByName(req.body.Name);
+    }
+    res.send(frontendResponse)
   })
 
-  app.get('/getItemByID', async(req, res) => {
+  // app.get('/getItemByID', async(req, res) => {
     
-    let result = await itemService.getItemByID(req.body.itemID);
+  //   let result = await itemService.getItemByID(req.body.itemID);
     
-    res.send(result)
-  })
+  //   res.send(result)
+  // })
   
   // Add new items
   app.post('/addItem', async(req,res)=>{
     // console.log(req.body);
-    let result = await itemService.addItem(req.body);
-    res.send(result);
+    frontendResponse = await itemService.addItem(req.body);
+    res.send(frontendResponse);
   })
   
   // Add new stock to exsisting items
   app.post('/addItemStock', async(req,res)=>{
     // console.log(req.body);
-    let result = await itemService.addItemStock(req.body);
-    res.send(result);
+    frontendResponse = await itemService.addItemStock(req.body);
+    res.send(frontendResponse);
   })
   
   // Transaction Request
   app.post('/transactionReq', async (req,res)=>{
-    console.log(req.body);
-    let result = await transactionService.addTransaction(req.body);
-    res.send(result);
+    // console.log(req.body);
+    frontendResponse = await transactionService.addTransaction(req.body);
+    res.send(frontendResponse);
   })
 
   app.get('/getTransaction', async (req,res)=>{
     // console.log(req.body);
-    let result = await transactionService.getTransaction(req.body);
-    res.send(result);
+    frontendResponse = await transactionService.getTransaction(req.body);
+    res.send(frontendResponse);
   })
   
   // Add new Dealer
   app.post('/addDistributer', async (req,res)=>{
-    let result = await distributerService.addDistributer(req.body);
-    console.log(result);
-    res.send(result);
+    frontendResponse = await distributerService.addDistributer(req.body);
+    // console.log(result);
+    res.send(frontendResponse);
   })
 
   app.get('/getDistributer', async (req,res)=>{
-    let result = await distributerService.getDistriByID(req.body);
-    console.log(result);
-    res.send(result);
+    let type = req.body.type;
+    if(type==="ID"){
+      frontendResponse = await distributerService.getDistriByID(req.body);
+    }else if(type==="Name"){
+      frontendResponse = await distributerService.getDistriByName(req.body);
+    }
+    
+    // console.log(result);
+    res.send(frontendResponse);
   })
   
   // Add exsisting dealer order
@@ -80,14 +94,20 @@ const controller = ()=>{
   
   // Customer Search
   app.get('/getCustomer', async (req,res)=>{
-    console.log(req.body);
-    let result = await customerService.getCustomerByID(req.body);
-    res.send(result);
+    // console.log(req.body);
+    let type = req.body.type;
+    if(type==="ID"){
+      frontendResponse = await customerService.getCustomerByID(req.body);
+    }else if(type==="Name"){
+      frontendResponse = await customerService.getCustomerByName(req.body);
+    }
+    
+    res.send(frontendResponse);
   })
 
   app.post('/addCustomer', async (req,res)=>{
-    let result = await customerService.addCustomer(req.body);
-    res.send(result);
+    frontendResponse = await customerService.addCustomer(req.body);
+    res.send(frontendResponse);
   })
   
   app.listen(port, () => {
