@@ -4,15 +4,32 @@ const newItemSchema = require('../schema/newItem')
 const ItemModel = mongoose.model('Item', newItemSchema);
 
 var foundItem = null;
-
+var resp = {
+    result: "",
+    id: ""
+}
 const addItem = async(newItem)=>{
     let result = "";
     const newItem1 = new ItemModel(newItem);
+    // var id = newItem1.id;
+    // console.log(newItem1.id);
     await newItem1.save()
-    .then(item=>item==newItem1? result="Successful" : result="failed")
+    .then(item=>{item==newItem1? result="Successful" : result="failed"; id = item.id})
     .catch(err=>console.log(err));
+    resp = {
+        result: result,
+        id: id
+    }
+    // console.log(newItem.id);
+    return resp;
+}
 
-    return result;
+const itemRespProcess = (item) =>{
+    item==newItem1? result="Successful" : result="failed"
+    resp = {
+        result: result,
+        id: item.id
+    }
 }
 
 const getItemByID = async(itemID)=>{
