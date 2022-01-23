@@ -3,6 +3,7 @@ const bodyParser = require('body-parser')
 
 
 const itemService = require('../service/item')
+const transactionService = require('../service/transaction')
 const app = express()
 app.use(bodyParser.json({extended: true}))
 // Enable below line after the frontend is ready
@@ -44,9 +45,16 @@ const controller = ()=>{
   })
   
   // Transaction Request
-  app.post('/transactionReq', (req,res)=>{
+  app.post('/transactionReq', async (req,res)=>{
     console.log(req.body);
-    res.send("Msg recieved");
+    let result = await transactionService.addTransaction(req.body);
+    res.send(result);
+  })
+
+  app.get('/getTransaction', async (req,res)=>{
+    // console.log(req.body);
+    let result = await transactionService.getTransaction(req.body);
+    res.send(result);
   })
   
   // Add new Dealer

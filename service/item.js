@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const newItemSchema = require('../schema/newitem')
+const newItemSchema = require('../schema/newItem')
 
 const ItemModel = mongoose.model('Item', newItemSchema);
 
