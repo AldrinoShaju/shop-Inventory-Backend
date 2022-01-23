@@ -6,6 +6,7 @@ const itemService = require('../service/item')
 const transactionService = require('../service/transaction')
 const distributerService = require('../service/distributer')
 const customerService = require('../service/customer')
+const constants = require('../constant/serviceConstants')
 const app = express()
 app.use(bodyParser.json({extended: true}))
 // Enable below line after the frontend is ready
@@ -25,9 +26,9 @@ const controller = ()=>{
 
   app.get('/getItem', async(req, res) => {
     
-    if(req.body.type==="ID"){
+    if(req.body.type===constants.ID){
       frontendResponse = await itemService.getItemByID(req.body.itemID);
-    }else if(req.body.type==="Name"){
+    }else if(req.body.type===constants.NAME){
       frontendResponse = await itemService.getItemByName(req.body.Name);
     }
     res.send(frontendResponse)
