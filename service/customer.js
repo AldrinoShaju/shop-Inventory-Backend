@@ -38,11 +38,11 @@ const getCustomerByID = async(custID)=>{
     return result;
 }
 
-// const getItemByName = async (ItemName)=>{
+const getCustomerByName = async (custName)=>{
     
-//     let result = await ItemModel.find({ Name: ItemName})
-//     return result;   
-// }
+    let result = await CustomerModel.find({ Name: custName.Name})
+    return result;   
+}
 
 // const addItemStock = async (newStock)=>{
 //     let result = "";
@@ -64,4 +64,4 @@ const getCustomerByID = async(custID)=>{
 //     return result;
 // }
 
-module.exports = {addCustomer, getCustomerByID}
+module.exports = {addCustomer, getCustomerByID, getCustomerByName}

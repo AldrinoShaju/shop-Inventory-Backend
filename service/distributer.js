@@ -60,7 +60,7 @@ const getDistriByID = async(distriID)=>{
 
 const getDistriByName = async (distriName)=>{
     
-    let result = await DistributerModel.find({ Name: distriName})
+    let result = await DistributerModel.find({ Name: distriName.Name})
     return result;   
 }
 
@@ -115,4 +115,4 @@ const addItemsFromOrder = async (itemsArray)=>{
     return itemsArrayCp;
 }
 
-module.exports = {addDistributer, getDistriByID}
+module.exports = {addDistributer, getDistriByID, getDistriByName}

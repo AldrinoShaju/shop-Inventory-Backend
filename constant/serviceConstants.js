@@ -1,4 +1,4 @@
 const ID = "ID"
 const NAME = "Name"
 
-export{ID, NAME}
+module.exports={ID, NAME}
